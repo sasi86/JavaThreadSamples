@@ -25,7 +25,7 @@ How Synchronization works under the hood?
  ExecutorService is an extension of Executor
  
   public interface ExecutorService{
-  
+  <T> Future<T> submit(Callable<T> task);
   //11 more methods
   
  }
@@ -69,4 +69,41 @@ Can we know if a task is done or not? - No…
 
 Can we cancel the execution of a task? - Yes, if the task has not started yet
  
+ # From Runnable to Callable
  
+ DrawBack
+ ========
+ 
+ Runnabletask= () -> someReallyLongProcess();
+ 
+Executorexecutor= ...;
+
+executor.execute(task);
+
+A task does not return anything
+
+ • No object can be returned
+
+ • No exception can be raised
+
+There is no way we can know if a task is done or not
+
+What is Needed?
+==============
+
+We need a new model for our tasks:
+
+With a method that returns a value And that can throw an Exception.
+
+We also need a new object that acts as a bridge between threads.
+
+@FuntionlaInterface
+public interfce Callable<V>{
+
+ v call() throws Exception;
+
+}
+
+The Executorinterface does not handle callables.The ExecutorServiceinterface has a submit() method
+
+
