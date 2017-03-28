@@ -22,10 +22,11 @@ How Synchronization works under the hood?
   
  }
  
+ 
  ExecutorService is an extension of Executor
  
   public interface ExecutorService{
-  <T> Future<T> submit(Callable<T> task);
+  T  Future T submit(Callable T task);
   //11 more methods
   
  }
@@ -74,7 +75,7 @@ Can we cancel the execution of a task? - Yes, if the task has not started yet
  DrawBack
  ========
  
- Runnabletask= () -> someReallyLongProcess();
+ Runnable task= () -> someReallyLongProcess();
  
 Executorexecutor= ...;
 
@@ -98,12 +99,34 @@ With a method that returns a value And that can throw an Exception.
 We also need a new object that acts as a bridge between threads.
 
 @FuntionlaInterface
-public interfce Callable<V>{
+public interfce Callable V{
 
  v call() throws Exception;
 
 }
 
-The Executorinterface does not handle callables.The ExecutorServiceinterface has a submit() method
+The Executor interface does not handle callables.The ExecutorServiceinterface has a submit() method
+
+# How does Future Object work?
+
+# Behavior of Future.get()
+
+// In the main thread 
+
+Callable task= () -> buildPatientReport(); 
+
+Future future = executor.submit(task); 
+
+String result = future.get();
+
+The Future object is returned by the submit()call in the main thread 
+
+The get()method of the Future object can be called to return the produced String 
+
+The get()call is blocking until the returned String is available
+
+If an exception has been thrown, then this exception is also thrown by the get() call, wrapped in an ExecutionException
+
+On can pass a timeout to the get() call, to avoid indefinitely blocking calls 
 
 
