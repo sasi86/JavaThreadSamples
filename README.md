@@ -96,14 +96,14 @@ We need a new model for our tasks:
 With a method that returns a value And that can throw an Exception.
 
 We also need a new object that acts as a bridge between threads.
-
+```java
 @FuntionlaInterface
 public interfce Callable V{
 
  v call() throws Exception;
 
 }
-
+```
 The Executor interface does not handle callables.The ExecutorServiceinterface has a submit() method
 
 # How does Future Object work?
@@ -118,11 +118,11 @@ Future future = executor.submit(task);
 
 String result = future.get();
 
-The Future object is returned by the submit()call in the main thread 
+The Future object is returned by the submit()  call in the main thread 
 
-The get()method of the Future object can be called to return the produced String 
+The get() method of the Future object can be called to return the produced String 
 
-The get()call is blocking until the returned String is available
+The get() call is blocking until the returned String is available
 
 If an exception has been thrown, then this exception is also thrown by the get() call, wrapped in an ExecutionException
 
