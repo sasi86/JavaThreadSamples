@@ -15,36 +15,35 @@ How Synchronization works under the hood?
  # Concurrency - Executor Pattern
  
  Pool of thread is an - Executor interface.(Several Implementation available in JDK)
- 
+ ```java
  public interface Executor{
- 
   void execute(Runnable task);
-  
  }
- 
+ ```
  
  ExecutorService is an extension of Executor
- 
-  public interface ExecutorService{
-  T  Future T submit(Callable T task);
+```java
+  public interface ExecutorService<T>{
+  <T>  Future <T> submit(Callable T task);
   //11 more methods
   
  }
- 
+ ```
  To Create an instance of Executor we have *factory class Executors* - provieds 20 methods
  
  Lets create a Thread pool with only one thread
  
  Exampel 1:
- 
+   ```java
  ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor(); // Thread in this pool will be available as long as this pool is available.
+``` 
  
  Exampel 2:
- 
+ ```java
  ExecutorService multipleThreadExecutor = Executors.newFixedThreadPoolExecutor(8);
- 
+``` 
  # Waiting Queue Of ExecutorService
- 
+```java 
  ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
  
  Runnable task1  = () - > {System.out.println("Thread A")};
@@ -54,7 +53,7 @@ How Synchronization works under the hood?
  multipleThreadExecutor.execute(task1);
  
  multipleThreadExecutor.execute(task2);
- 
+``` 
  When we run the above code. Task2 has to wait for Task1 to complete. The single thread executor has a waiting queue to handle that.
  
  
