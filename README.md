@@ -24,7 +24,7 @@ How Synchronization works under the hood?
  ExecutorService is an extension of Executor
 ```java
   public interface ExecutorService<T>{
-  <T>  Future <T> submit(Callable T task);
+  <T>  Future <T> submit(Callable<T> task);
   //11 more methods
   
  }
@@ -50,9 +50,9 @@ How Synchronization works under the hood?
  
  Runnable task2  = () - > {System.out.println("Thread B")};
  
- multipleThreadExecutor.execute(task1);
+ singleThreadExecutor.execute(task1);
  
- multipleThreadExecutor.execute(task2);
+ singleThreadExecutor.execute(task2);
 ``` 
  When we run the above code. Task2 has to wait for Task1 to complete. The single thread executor has a waiting queue to handle that.
  
@@ -73,13 +73,11 @@ Can we cancel the execution of a task? - Yes, if the task has not started yet
  
  DrawBack
  ========
- 
- Runnable task= () -> someReallyLongProcess();
- 
-Executorexecutor= ...;
-
+ ```java
+Runnable task= () -> someReallyLongProcess();
+Executor executor= ...;
 executor.execute(task);
-
+```
 A task does not return anything
 
  • No object can be returned
@@ -104,19 +102,19 @@ public interfce Callable V{
 
 }
 ```
-The Executor interface does not handle callables.The ExecutorServiceinterface has a submit() method
+The Executor interface does not handle callables.The ExecutorService interface has a submit() method
 
 # How does Future Object work?
 
 # Behavior of Future.get()
 
+
+```java
 // In the main thread 
-
-Callable task= () -> buildPatientReport(); 
-
-Future future = executor.submit(task); 
-
-String result = future.get();
+Callable<List<Patient>> task= () -> buildPatientReport(); 
+Future<List<Patient>> future = executor.submit(task); 
+List<Patient> result = future.get();
+```
 
 The Future object is returned by the submit()  call in the main thread 
 
@@ -126,6 +124,6 @@ The get() call is blocking until the returned String is available
 
 If an exception has been thrown, then this exception is also thrown by the get() call, wrapped in an ExecutionException
 
-On can pass a timeout to the get() call, to avoid indefinitely blocking calls 
+One can pass a timeout to the get() call, to avoid indefinitely blocking calls 
 
 
