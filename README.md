@@ -12,7 +12,7 @@ How Synchronization works under the hood?
  Once Thread A finished running the synch method it hands over the key to lock Object. So that it can be allocated to Thread B.
  
  
- # Concurrency - Executor Pattern
+ # Concurrency - Executor Pattern - mani
  
  Pool of thread is an - Executor interface.(Several Implementation available in JDK)
  ```java
